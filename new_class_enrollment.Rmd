@@ -1,6 +1,6 @@
 ---
 title: "Class Enrollment - Pair Programming"
-author: "Micah Williams"
+author: "Micah Williams, Jamal Nimer"
 date: "3/3/2020"
 output: html_document
 ---
