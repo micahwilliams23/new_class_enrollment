@@ -1,0 +1,39 @@
+---
+title: "Class Enrollment - Pair Programming"
+author: "Micah Williams"
+date: "3/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(readxl)
+library(tidyverse)
+library(janitor)
+library(googlesheets4)
+library(gt)
+
+# download.file('https://registrar.fas.harvard.edu/files/fas-registrar/files/class_enrollment_summary_by_term_3.22.19_0.xlsx',
+#               'data/spring2019.xlsx')
+# download.file('https://registrar.fas.harvard.edu/files/fas-registrar/files/class_enrollment_summary_by_term_2.25.20_0.xlsx',
+#               'data/spring2020.xlsx')
+
+old <- read_excel('data/class_enrollment_summary_by_term_3.22.19_0.xlsx', skip = 3) %>%
+  clean_names() %>%
+  filter(!is.na(course_name))
+
+current <- read_excel('data/class_enrollment_summary_by_term_2.25.20_0.xlsx', skip = 3) %>%
+  clean_names() %>%
+  filter(!is.na(course_name))
+```
+
+```{r}
+top_new_courses <- current %>%
+  anti_join(old, by = 'course_id') %>%
+  arrange(desc(total)) %>%
+  slice(1:5) %>%
+  select(-c(course_section_code,course_department,grad:withdraw))
+
+top_new_courses
+```
+
