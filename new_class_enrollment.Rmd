@@ -32,7 +32,7 @@ top_new_courses <- current %>%
   anti_join(old, by = 'course_id') %>%
   arrange(desc(total)) %>%
   slice(1:5) %>%
-  select(-c(course_section_code,course_department,grad:withdraw))
+  select(course_name, course_department, total)
 
 top_new_courses
 ```
